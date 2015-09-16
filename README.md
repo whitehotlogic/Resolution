@@ -19,8 +19,9 @@ Grab the resolution.cs file from this repository, add it to your project, and ma
 ```csharp
 int desiredWidth = 1024;
 int desiredHeight = 768;
-Screen screen = Screen.AllScreens[0];
-Resolution.CResolution ChangeRes = new Resolution.CResolution(desiredWidth, desiredHeight, screen);
+foreach (Screen display in Screen.AllScreens) {
+  Resolution.CResolution ChangeRes = new Resolution.CResolution(desiredWidth, desiredHeight, display);
+}
 ```
 
 Known Issues:
