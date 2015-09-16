@@ -8,7 +8,10 @@ Special thanks to original developer, Sreejith SS Nair @ http://www.codeproject.
 License: Code Project Open License (CPOL) 1.02 (http://www.codeproject.com/info/cpol10.aspx)
 
 **How To Use It:**
-```
+
+1. Load the project in VS2015
+2. grab the resolution.cs file from this repository and use it in your project like this:
+```csharp
 int desiredWidth = 1024;
 int desiredHeight = 768;
 Screen screen = Screen.AllScreens[0];
@@ -16,5 +19,5 @@ Resolution.CResolution ChangeRes = new Resolution.CResolution(desiredWidth, desi
 ```
 
 Todo:
-Remove redundant constants.
-Fix issue where display ordering configuration is lost.
+* Remove redundant constants.
+* Fix issue where display ordering configuration is lost.
