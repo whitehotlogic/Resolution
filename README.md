@@ -28,4 +28,5 @@ Known Issues:
 * If your monitors are physically positioned out of the driver-determined order, icons can show up in weird places after setting resolution with this code. Workaround: Configure "Auto-Arrange" for desktop icons.
 
 TODO:
-* gitignore all the junk in this repository that doesn't need to be there
+* Create gitignore for all the junk in this repository that doesn't need to be there
+* Test with a large array of monitors (currently only tested with dual monitors)
