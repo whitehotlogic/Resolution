@@ -1,0 +1,7 @@
+C:\tempDev\screen resolution\bin\Debug\Resolution.exe
+C:\tempDev\screen resolution\bin\Debug\Resolution.pdb
+C:\tempDev\screen resolution\obj\Debug\Resolution.csprojResolveAssemblyReference.cache
+C:\tempDev\screen resolution\obj\Debug\Resolution.Form1.resources
+C:\tempDev\screen resolution\obj\Debug\Resolution.csproj.GenerateResource.Cache
+C:\tempDev\screen resolution\obj\Debug\Resolution.exe
+C:\tempDev\screen resolution\obj\Debug\Resolution.pdb
