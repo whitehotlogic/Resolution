@@ -25,7 +25,7 @@ foreach (Screen display in Screen.AllScreens) {
 ```
 
 Known Issues:
-* If your monitors are positioned out of their physical order, icons can show up in weird places after setting resolution with this code. Workaround: Configure "Auto-Arrange" for desktop icons.
+* If your monitors are physically positioned out of the driver-determined order, icons can show up in weird places after setting resolution with this code. Workaround: Configure "Auto-Arrange" for desktop icons.
 
 TODO:
 * gitignore all the junk in this repository that doesn't need to be there
