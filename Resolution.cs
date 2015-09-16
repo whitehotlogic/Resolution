@@ -1,55 +1,152 @@
 // A csharp class that allows updating of screen resolutions for an infinite number of screens
 
 // Original Project Page: http://www.codeproject.com/Articles/6810/Dynamic-Screen-Resolution Author: sreejith ss nair
+// Original Project Page: 
 // Updated Project Page: https://github.com/whitehotlogic/Resolution Author: Dustin Johnson, whitehotlogic
 
 using System;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-[StructLayout(LayoutKind.Sequential)]
-public struct DEVMODE1 
+
+
+
+
+
+
+
+
+
+[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+public struct DEVMODE
 {
-	[MarshalAs(UnmanagedType.ByValTStr,SizeConst=32)] public string dmDeviceName;
-	public short  dmSpecVersion;
-	public short  dmDriverVersion;
-	public short  dmSize;
-	public short  dmDriverExtra;
-	public int    dmFields;
+    // You can define the following constant
+    // but OUTSIDE the structure because you know
+    // that size and layout of the structure is very important
+    // CCHDEVICENAME = 32 = 0x50
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+    public string dmDeviceName;
+    // In addition you can define the last character array
+    // as following:
+    //[MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
+    //public Char[] dmDeviceName;
 
-	public short dmOrientation;
-	public short dmPaperSize;
-	public short dmPaperLength;
-	public short dmPaperWidth;
+    // After the 32-bytes array
+    [MarshalAs(UnmanagedType.U2)]
+    public UInt16 dmSpecVersion;
 
-	public short dmScale;
-	public short dmCopies;
-	public short dmDefaultSource;
-	public short dmPrintQuality;
-	public short dmColor;
-	public short dmDuplex;
-	public short dmYResolution;
-	public short dmTTOption;
-	public short dmCollate;
-	[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)] public string dmFormName;
-	public short dmLogPixels;
-	public short dmBitsPerPel;
-	public int   dmPelsWidth;
-	public int   dmPelsHeight;
+    [MarshalAs(UnmanagedType.U2)]
+    public UInt16 dmDriverVersion;
 
-	public int   dmDisplayFlags;
-	public int   dmDisplayFrequency;
+    [MarshalAs(UnmanagedType.U2)]
+    public UInt16 dmSize;
 
-	public int   dmICMMethod;
-	public int   dmICMIntent;
-	public int   dmMediaType;
-	public int   dmDitherType;
-	public int   dmReserved1;
-	public int   dmReserved2;
+    [MarshalAs(UnmanagedType.U2)]
+    public UInt16 dmDriverExtra;
 
-	public int   dmPanningWidth;
-	public int   dmPanningHeight;
-};
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmFields;
+
+    public POINTL dmPosition;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmDisplayOrientation;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmDisplayFixedOutput;
+
+    [MarshalAs(UnmanagedType.I2)]
+    public Int16 dmColor;
+
+    [MarshalAs(UnmanagedType.I2)]
+    public Int16 dmDuplex;
+
+    [MarshalAs(UnmanagedType.I2)]
+    public Int16 dmYResolution;
+
+    [MarshalAs(UnmanagedType.I2)]
+    public Int16 dmTTOption;
+
+    [MarshalAs(UnmanagedType.I2)]
+    public Int16 dmCollate;
+
+    // CCHDEVICENAME = 32 = 0x50
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)]
+    public string dmFormName;
+    // Also can be defined as
+    //[MarshalAs(UnmanagedType.ByValArray, 
+    //    SizeConst = 32, ArraySubType = UnmanagedType.U1)]
+    //public Byte[] dmFormName;
+
+    [MarshalAs(UnmanagedType.U2)]
+    public UInt16 dmLogPixels;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmBitsPerPel;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmPelsWidth;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmPelsHeight;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmDisplayFlags;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmDisplayFrequency;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmICMMethod;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmICMIntent;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmMediaType;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmDitherType;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmReserved1;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmReserved2;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmPanningWidth;
+
+    [MarshalAs(UnmanagedType.U4)]
+    public UInt32 dmPanningHeight;
+
+    /// <summary>
+    /// Initializes the structure variables.
+    /// </summary>
+    public void Initialize()
+    {
+        this.dmDeviceName = new string(new char[32]);
+        this.dmFormName = new string(new char[32]);
+        this.dmSize = (ushort)Marshal.SizeOf(this);
+    }
+}
+
+
+
+
+
+[StructLayout(LayoutKind.Sequential)]
+public struct POINTL
+{
+    [MarshalAs(UnmanagedType.I4)]
+    public int x;
+    [MarshalAs(UnmanagedType.I4)]
+    public int y;
+}
+
+
+
+
 
 [Flags()]
 public enum ChangeDisplaySettingsFlags : uint
@@ -68,15 +165,37 @@ public enum ChangeDisplaySettingsFlags : uint
     CDS_NORESET = 0x10000000
 }
 
+
+
+
+
 class User_32
 {
+    /*
 	[DllImport("user32.dll")]
-	public static extern int EnumDisplaySettings (string deviceName, int modeNum, ref DEVMODE1 devMode );         
-	[DllImport("user32.dll")]
-	public static extern int ChangeDisplaySettings(ref DEVMODE1 devMode, int flags);
-    [DllImport("user32.dll")]
-    public static extern int ChangeDisplaySettingsEx(string lpszDeviceName, ref DEVMODE1 lpDevMode, IntPtr hwnd, ChangeDisplaySettingsFlags dwflags, IntPtr lParam);
+	public static extern int EnumDisplaySettingsEx (string deviceName, int modeNum, ref DEVMODE devMode, int flags );     
+    */
 
+    /*
+    [DllImport("user32.dll")]
+	public static extern int ChangeDisplaySettings(ref DEVMODE devMode, int flags);
+    */
+
+
+    [DllImport("user32.dll")]
+    public static extern int ChangeDisplaySettingsEx(string lpszDeviceName, ref DEVMODE lpDevMode, IntPtr hwnd, ChangeDisplaySettingsFlags dwflags, IntPtr lParam);
+
+
+
+    [DllImport("User32.dll", SetLastError = true, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern Boolean EnumDisplaySettings(
+            byte[] lpszDeviceName,  // display device name (\\.\DISPLAY1, \\.\DISPLAY2, etc.)
+            [param: MarshalAs(UnmanagedType.U4)]
+                Int32 iModeNum,         // graphics mode
+            [In, Out]
+                ref DEVMODE lpDevMode       // graphics mode settings
+            );
 
     public const int ENUM_CURRENT_SETTINGS = -1;
 	public const int CDS_UPDATEREGISTRY = 0x01;
@@ -89,37 +208,59 @@ class User_32
 
 namespace Resolution
 {
-	class CResolution
+
+    // need this class to convert the lpszDeviceName into a byte array readable by EnumDisplaySettings
+    public static class StringExtensions
+    {
+        public static byte[] ToLPTStr(string str)
+        {
+            var lptArray = new byte[str.Length + 1];
+
+            var index = 0;
+            foreach (char c in str.ToCharArray())
+                lptArray[index++] = Convert.ToByte(c);
+
+            lptArray[index] = Convert.ToByte('\0');
+
+            return lptArray;
+        }
+    }
+
+
+    class CResolution
 	{
-		public CResolution(int w,int h,Screen s)
+
+
+		public CResolution(uint w,uint h,Screen s)
 		{
             Screen screen = s;
-            int iWidth = w;
-            int iHeight = h;
+            uint iWidth = w;
+            uint iHeight = h;
             
 
-            DEVMODE1 dm = new DEVMODE1();
-			dm.dmDeviceName = new String (new char[32]);
-			dm.dmFormName = new String (new char[32]);
-			dm.dmSize = (short)Marshal.SizeOf (dm);
+            DEVMODE dm = new DEVMODE();
+            dm.Initialize();
+			//dm.dmDeviceName = new String (new char[32]);
+			//dm.dmFormName = new String (new char[32]);
+			//dm.dmSize = (ushort)Marshal.SizeOf (dm);
 
             // make sure we can read current monitor settings
-			if (0 != User_32.EnumDisplaySettings (null, User_32.ENUM_CURRENT_SETTINGS, ref dm))
+			if (User_32.EnumDisplaySettings (StringExtensions.ToLPTStr(screen.DeviceName), User_32.ENUM_CURRENT_SETTINGS, ref dm))
             {
 
 				
 				dm.dmPelsWidth = iWidth;
 				dm.dmPelsHeight = iHeight;
 
-                // send a test to see if we can change the display settings
-                int iRet = User_32.ChangeDisplaySettings (ref dm, User_32.CDS_TEST);
+                // check to see if requested graphics mode can be set
+                int iRet = User_32.ChangeDisplaySettingsEx (screen.DeviceName, ref dm, IntPtr.Zero, ChangeDisplaySettingsFlags.CDS_TEST, IntPtr.Zero);
                 if (iRet == User_32.DISP_CHANGE_FAILED)
 				{
 					MessageBox.Show("DISP_CHANGE_FAILED", "FAILURE",MessageBoxButtons.OK,MessageBoxIcon.Information);
 				}
 				else
 				{
-                    //have to use ChangeDisplaySettingsEx() instead of ChangeDisplaySettings(), or only one monitor will be affected
+                    //have to use ChangeDisplaySettingsEx() instead of ChangeDisplaySettings() so we can specify device name (for multi-monitor support)
                     iRet = User_32.ChangeDisplaySettingsEx(screen.DeviceName, ref dm, IntPtr.Zero, ChangeDisplaySettingsFlags.CDS_UPDATEREGISTRY, IntPtr.Zero);
                     
                     switch (iRet) 
@@ -149,5 +290,6 @@ namespace Resolution
 				
 			}
 		}
+
 	}
 }

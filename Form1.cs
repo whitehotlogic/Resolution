@@ -14,7 +14,7 @@ namespace Resolution
 	{
 		private System.Windows.Forms.Button button1;
 
-        private int newWidth = 1024,newHeight=768;
+        private uint newWidth = 1024,newHeight=768;
 
 
 		private System.ComponentModel.Container components = null;
