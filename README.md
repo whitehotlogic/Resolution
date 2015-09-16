@@ -11,8 +11,11 @@ License: Code Project Open License (CPOL) 1.02 (http://www.codeproject.com/info/
 
 **How To Use It:**
 
-1. Load the project in VS2015
-2. grab the resolution.cs file from this repository and use it in your project like this:
+Load the project in VS2015 and run it. (includes windows forms example of usage)
+
+**OR**
+
+Grab the resolution.cs file from this repository, add it to your project, and make it do like this:
 ```csharp
 int desiredWidth = 1024;
 int desiredHeight = 768;
@@ -20,6 +23,8 @@ Screen screen = Screen.AllScreens[0];
 Resolution.CResolution ChangeRes = new Resolution.CResolution(desiredWidth, desiredHeight, screen);
 ```
 
-Todo:
-* Remove redundant constants.
-* Fix issue where display ordering configuration is lost.
+Known Issues:
+* If your monitors are positioned out of their physical order, icons can show up in weird places after setting resolution with this code. Workaround: Configure "Auto-Arrange" for desktop icons.
+
+TODO:
+* gitignore all the junk in this repository that doesn't need to be there
