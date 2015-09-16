@@ -89,14 +89,12 @@ namespace Resolution
 
 		private void button1_Click(object sender, System.EventArgs e)
 		{
-            // change each screen's resolution to FixHeight and FixWidth
-            //foreach (Screen display in Screen.AllScreens)
-            //{
-            Screen display = Screen.AllScreens[0];
+            // change each screen's resolution to newWidth x newHeight
+            foreach (Screen display in Screen.AllScreens)
+            {
                 MessageBox.Show("Resolution of " + display.DeviceName + " is going to change to " + newWidth.ToString() + "x" + newHeight.ToString());
                 Resolution.CResolution ChangeRes = new Resolution.CResolution(newWidth, newHeight, display);
-
-            //}
+            }
             
 
         }

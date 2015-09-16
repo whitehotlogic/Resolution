@@ -1,8 +1,10 @@
 // A csharp class that allows updating of screen resolutions for an infinite number of screens
+// Project Page: https://github.com/whitehotlogic/Resolution Author: Dustin Johnson, whitehotlogic
+//
+// SOURCES:
+// Reference Project Page: http://www.codeproject.com/Articles/6810/Dynamic-Screen-Resolution Author: sreejith ss nair
+// Reference Project Page: http://www.codeproject.com/Articles/36664/Changing-Display-Settings-Programmatically Author: Mohammad Elsheimy
 
-// Original Project Page: http://www.codeproject.com/Articles/6810/Dynamic-Screen-Resolution Author: sreejith ss nair
-// Original Project Page: 
-// Updated Project Page: https://github.com/whitehotlogic/Resolution Author: Dustin Johnson, whitehotlogic
 
 using System;
 using System.Windows.Forms;
@@ -215,13 +217,10 @@ namespace Resolution
         public static byte[] ToLPTStr(string str)
         {
             var lptArray = new byte[str.Length + 1];
-
             var index = 0;
             foreach (char c in str.ToCharArray())
                 lptArray[index++] = Convert.ToByte(c);
-
             lptArray[index] = Convert.ToByte('\0');
-
             return lptArray;
         }
     }
